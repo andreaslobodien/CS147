@@ -9,6 +9,11 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		
 		<link href="style.css" rel="stylesheet" type="text/css">
+		<!-- this line replaces the <style> tag -->
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<!-- imports jquery library -->
+		
 	</head>
 
 	<body>
@@ -19,10 +24,10 @@
 		<!-- This is, well, the bottom bit -->
 		<div class="bottombit">
 			<p class="explanation">Intrepid spy, your next dead drop location is 37.4258709,-122.1712977.</p>
-			<div id="button">Refresh GPS: <div id="timer"></div></div>
+			<div id="button">  GPS: <div id="timer"></div></div>
 
 			<div class="area">
-				<div class="box box1"><div class="latitude"></div></div>
+				<div class="box box1"><div class="latitude">Blah</div></div>
 				<div class="box box2"><div class="longitude"></div></div>
 			</div>
 
@@ -30,12 +35,56 @@
 
 		<!-- Let's put in a timer here -->
 		<script type="text/javascript">
+		
+		var count = 30;
+		var counter = setInterval(timer, 1000); 
+
+		function timer() {
+ 		 count = count - 1;
+   		 if (count <= 0) {
+       	 clearInterval(counter);
+       	 alert("Boom!");
+       	 document.getElementById('button').style.visibility = 'hidden'; 
+       	 <!-- button disappears -->
+       	 return;
+   	 		}
+   		document.getElementById("timer").innerHTML = count + " secs";
+   		
+		}
 
 		</script>
 		
 		<!-- Let's put in the geolocation stuff here -->
 		<script type="text/javascript">
+		$(function () {
+   		 $("#button").click(function () {
+        	alert("hellooo");
+        	$(".box").hide();
+        	$(".box").fadeIn();
+        	$(".box").html("WOOOHOOOO");
+			$(".box").addClass("box2");        	
+   		 });
+		});
+		<!--jscript enabled code --
 		
+		$(function () {
+    $("#button").click(function () {
+        getLocation();
+    });
+});
+
+function getLocation() {
+    if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    alert(position.coords.latitude);
+    alert(position.coords.longitude);
+}
 		</script>
 	</body>
 </html>
